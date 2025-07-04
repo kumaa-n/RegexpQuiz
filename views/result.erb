@@ -1,0 +1,45 @@
+<main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl w-full bg-white p-8 rounded-2xl shadow-2xl space-y-8">
+    <div>
+      <h2 class="text-3xl font-extrabold text-gray-900 text-center">解答結果</h2>
+      <p class="mt-4 text-center text-2xl font-bold text-blue-600">
+        <%= @correct_num %> / <%= @total_quiz_num %> 問正解！
+      </p>
+    </div>
+
+    <div class="my-6 space-y-4">
+      <% @results.each_with_index do |result, index| %>
+        <div class="p-4 border rounded-2xl <%= result[:is_correct] ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50' %>">
+          <p class="font-semibold text-lg text-gray-800 mb-2">
+            <span class="font-bold text-gray-900">Q<%= index + 1 %>:</span> <%=h result[:question] %>
+          </p>
+          <div class="text-sm">
+            <p>あなたの解答: <span class="font-medium"><%=h result[:user_answer] %></span></p>
+            <% unless result[:is_correct] %>
+              <p>正解: <span class="font-medium text-green-700"><%=h result[:correct_answer] %></span></p>
+            <% end %>
+          </div>
+          <div class="mt-2 font-bold text-lg">
+            <% if result[:is_correct] %>
+              <span class="text-green-600">正解！</span>
+            <% else %>
+              <span class="text-red-600">不正解...</span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="text-center mt-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+      <a href="/" class="w-full sm:w-auto inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-2xl text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+        トップに戻る
+      </a>
+      <a href="<%= @x_share_url %>" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex justify-center items-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-2xl text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500">
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        結果をXで共有
+      </a>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,34 @@
+<main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl w-full bg-white p-8 rounded-2xl shadow-2xl space-y-8">
+    <div>
+      <h2 class="text-3xl font-extrabold text-gray-900 text-center">四択クイズ</h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        選択された問題数: <span class="font-medium text-blue-600"><%= @quizzes.size %></span>問
+      </p>
+    </div>
+
+    <form action="/result" method="post">
+      <% @quizzes.each_with_index do |quiz, index| %>
+        <div class="my-6 p-6 border border-gray-200 rounded-2xl">
+          <p class="font-semibold text-lg text-gray-800 mb-4">
+            <span class="font-bold text-gray-900">Q<%= index + 1 %>:</span> <%=h quiz['question'] %>
+          </p>
+          <div class="space-y-2">
+            <% quiz.keys.select {|k| k.match?(/^choice/) }.shuffle.each do |choice_key| %>
+              <label class="flex items-center p-3 w-full rounded-xl border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                <input type="radio" name="answers[<%= quiz['id'] %>]" value="<%=h quiz[choice_key] %>" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500" required>
+                <span class="ml-3 text-gray-700"><%=h quiz[choice_key] %></span>
+              </label>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="text-center mt-8">
+        <button type="submit" class="w-full sm:w-auto inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-2xl text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          解答を送信する
+        </button>
+      </div>
+    </form>
+  </div>
+</main>

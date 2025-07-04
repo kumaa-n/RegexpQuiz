@@ -1,0 +1,18 @@
+<main class="flex-grow flex items-center justify-center">
+  <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-2xl text-center">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">問題数を選択してください</h2>
+    <form action="/exam" method="post">
+      <div class="mb-6">
+        <label for="quiz_num" class="sr-only">問題数</label>
+        <select id="quiz_num" name="quiz_num" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+          <% @select_quiz_nums.each do |i| %>
+            <option value="<%= i %>"<%= ' selected' if i == @default_quiz_num %>><%= i %>問</option>
+          <% end %>
+        </select>
+      </div>
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-2xl transition duration-300">
+        問題を開始する
+      </button>
+    </form>
+  </div>
+</main>
